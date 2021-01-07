@@ -59,8 +59,6 @@ plt.plot(riskHist[bestSoFar[1]], bestSoFar[0], 'ro')
 
     
 
-#ps.MonteCarlo([1, 2, 3])
-
 
 
 
