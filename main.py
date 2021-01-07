@@ -1,5 +1,4 @@
 # Main
-
 """
 
 The aim of this project is to compare holding ratios for a potential portfolio
@@ -11,49 +10,55 @@ Option to fix weighting of portfolio
 
 """
 
-
-
-
+#==========================
 # Imports
-import pandas as pd
 import PortfolioSim as ps
 import matplotlib.pyplot as plt
-import numpy as np
+
+
+#==========================
+# What tickers do we want to look at
 
 tickers = ['ENPH', 'PLUG', 'FSLR', 'SEDG',
            'AFC', 'RUN', 'TANH', 'HASI']
+# Also look at INRG (ICLN for UK), PLL
 
-# Also look at INRG (ICLN), PLL
 
-
-# Enter tickers required here and 
-tickerData = pd.DataFrame({
-    'Ticker':tickers,
-    'Weight':[1] * len(tickers),
-    'Vary':[True] * len(tickers)
-    })
-
-##############
+#==========================
+"""
+What timescale and granularity do we want to look over
+ Download market data for defined tickers within this period
+"""
 [period, interval] = ['1mo','1d']
+
 marketData = ps.DownloadFinanceData(tickers, 
                                     period=period, interval=interval)['Close']
 
 
+#==========================
+"""
+This calls the simulation function that measures the best portfolio possible
+using a given metric (Sharpes for now)
+
+Takes a list of tickers, df of market data and an isGenData bool as arguments.
+If isGenData True, goes through the whole simulation again and saves output,
+if False, loads previous simulation to save computation time
+"""
+[portPerfor, portReturn, bestSoFar, riskHist] = ps.SimulatePortfolio(tickers, 
+                                                              marketData, True)
 
 
-[portPerfor, portReturn, bestSoFar, riskHist] = ps.MonteCarlo(tickers, marketData, True)
+#==========================
+"""
+Extract percentage breakdown of potfoilio using calcualted optimal ratio
 
-
-portHistory = pd.DataFrame({
-    'Return History': portReturn,
-    'Risk History': riskHist
-    })
-
-portHistory.to_csv("portHistory.csv")
-
+Print financial properties of portfolio, alpha, beta, etc
+"""
 optimalPortfolio = ps.returnPercentages(bestSoFar, tickers)
 ps.printPortfolio(optimalPortfolio, bestSoFar, period, interval, portPerfor)
 
+
+# Quick and easy plot of return against risk
 plt.scatter(riskHist, portReturn, color = 'b', marker='x')
 plt.plot(riskHist[bestSoFar[1]], bestSoFar[0], 'ro') 
 
