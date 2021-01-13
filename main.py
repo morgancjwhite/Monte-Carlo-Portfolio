@@ -19,9 +19,8 @@ import matplotlib.pyplot as plt
 #==========================
 # What tickers do we want to look at
 
-tickers = ['ENPH', 'PLUG', 'FSLR', 'SEDG',
-           'AFC', 'RUN', 'TANH', 'HASI']
-# Also look at INRG (ICLN for UK), PLL
+tickers = ['TSLA', 'UBER', 'APPL']
+
 
 
 #==========================
