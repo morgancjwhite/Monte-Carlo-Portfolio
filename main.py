@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 #==========================
 # What tickers do we want to look at
 
-tickers = ['TSLA', 'UBER', 'APPL']
+tickers = ['TSLA', 'UBER', 'AAPL']
 
 
 
