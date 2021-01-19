@@ -28,7 +28,7 @@ tickers = ['TSLA', 'UBER', 'AAPL']
 What timescale and granularity do we want to look over
  Download market data for defined tickers within this period
 """
-[period, interval] = ['1mo','1d']
+[period, interval] = ['3mo','1d']
 
 marketData = ps.DownloadFinanceData(tickers, 
                                     period=period, interval=interval)['Close']

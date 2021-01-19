@@ -78,7 +78,7 @@ def GenerateWeights(weightMax, weightLen, marketData, func, method):
         return [portPerfor, portReturn, bestSoFar, riskHist]
     
     # To be added
-    elif method=='random':
+    elif method=='monte carlo':
         return None
 
 
